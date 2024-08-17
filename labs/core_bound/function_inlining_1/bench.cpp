@@ -2,7 +2,7 @@
 #include "benchmark/benchmark.h"
 #include "solution.h"
 
-static void bench1(benchmark::State &state) {
+static void bench(benchmark::State &state) {
   std::array<S, N> arr;
   init(arr);
 
@@ -13,8 +13,21 @@ static void bench1(benchmark::State &state) {
   }
 }
 
+
+static void baseline(benchmark::State &state) {
+  std::array<S, N> arr;
+  init(arr);
+
+  for (auto _ : state) {
+    auto copy = arr;
+    solution_baseline(copy);
+    benchmark::DoNotOptimize(copy);
+  }
+}
+
 // Register the function as a benchmark
-BENCHMARK(bench1)->Unit(benchmark::kMicrosecond);
+BENCHMARK(bench)->Unit(benchmark::kMicrosecond);
+BENCHMARK(baseline)->Unit(benchmark::kMicrosecond);
 
 // Run the benchmark
 BENCHMARK_MAIN();

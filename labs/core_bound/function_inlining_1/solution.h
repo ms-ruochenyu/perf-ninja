@@ -13,3 +13,5 @@ struct S {
 
 void init(std::array<S, N> &arr);
 void solution(std::array<S, N> &arr);
+void solution_baseline(std::array<S, N> &arr);
+
